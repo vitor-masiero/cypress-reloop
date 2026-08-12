@@ -16,3 +16,10 @@
 // Import commands.js using ES2015 syntax:
 import './gui_commands'
 import './api_commands'
+
+// Testing ecosystem plugins & libraries
+import '@testing-library/cypress/add-commands'
+import 'cypress-plugin-api'
+import 'cypress-axe'
+import 'cypress-real-events'
+import 'cypress-mochawesome-reporter/register'

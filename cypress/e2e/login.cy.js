@@ -1,8 +1,9 @@
+import { LOGIN_ELEMENTS, LOGIN_MESSAGES, fillLoginForm } from '../support/elements/Login.elements'
+
 describe('Autenticação', () => {
   context('Login com sucesso', () => {
     it('Deve realizar login com credenciais válidas e ir para o Dashboard', () => {
       cy.login()
-      cy.get('[data-testid=nav-user-menu-button]').should('be.visible')
     })
   })
 
@@ -12,13 +13,13 @@ describe('Autenticação', () => {
     })
 
     it('Deve mostrar mensagem de erro ao inserir email ou senha errada', () => {
-      cy.fillLoginForm(Cypress.env('email'), 'senha_errada')
-      cy.get('[data-testid="login-error-alert"]').should('contain', 'Email ou senha incorretos')
+      fillLoginForm(Cypress.env('email'), 'senha_errada')
+      cy.get(LOGIN_ELEMENTS.errorAlert).should('contain', LOGIN_MESSAGES.invalidCredentials)
     })
 
     it('Deve exibir validação ao informar e-mail inválido', () => {
-      cy.fillLoginForm('email_errado', 'senha123')
-      cy.get('[data-testid="login-email-error"]').should('contain', 'Por favor, insira um e-mail válido')
+      fillLoginForm('email_errado', 'senha123')
+      cy.get(LOGIN_ELEMENTS.emailError).should('contain', LOGIN_MESSAGES.invalidEmailFormat)
     })
   })
 

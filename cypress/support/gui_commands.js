@@ -1,3 +1,5 @@
+import { LOGIN_ELEMENTS } from './elements/Login.elements'
+
 Cypress.Commands.add('login', (
     email = Cypress.env('email'),
     password = Cypress.env('password'),
@@ -6,9 +8,9 @@ Cypress.Commands.add('login', (
     const login = () => {
         cy.visit('/login')
 
-        cy.get('[data-testid="login-email-input"]').type(email)
-        cy.get("[data-testid='login-password-input']").type(password, { log: false })
-        cy.get("[data-testid='login-submit-button']").click()
+        cy.get(LOGIN_ELEMENTS.emailInput).type(email)
+        cy.get(LOGIN_ELEMENTS.passwordInput).type(password, { log: false })
+        cy.get(LOGIN_ELEMENTS.submitButton).click()
 
         cy.location('pathname').should('eq', '/')
         cy.get('[data-testid="nav-user-menu-button"]').should('be.visible')
@@ -31,12 +33,6 @@ Cypress.Commands.add('login', (
     } else {
         login()
     }
-})
-
-Cypress.Commands.add('fillLoginForm', (email, password) => {
-    if (email) cy.get('[data-testid="login-email-input"]').clear().type(email)
-    if (password) cy.get('[data-testid="login-password-input"]').clear().type(password, { log: false })
-    cy.get('[data-testid="login-submit-button"]').click()
 })
 
 Cypress.Commands.add('logout', () => {
