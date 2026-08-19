@@ -1,10 +1,18 @@
 import { LOGIN_ELEMENTS } from './elements/Login.elements'
 
 Cypress.Commands.add('login', (
-    email = Cypress.env('email'),
-    password = Cypress.env('password'),
+    userRole = 'designer',
     { cacheSession = true } = {}
 ) => {
+    const users = Cypress.env('users') || {}
+    const user = users[userRole] || {
+        email: Cypress.env('email'),
+        password: Cypress.env('password')
+    }
+
+    const { email, password } = user
+    const environment = Cypress.env('environment') || 'local'
+
     const login = () => {
         cy.visit('/login')
 
@@ -28,7 +36,7 @@ Cypress.Commands.add('login', (
     }
 
     if (cacheSession) {
-        cy.session(email, login, options)
+        cy.session([environment, userRole, email], login, options)
         cy.visit('/')
     } else {
         login()

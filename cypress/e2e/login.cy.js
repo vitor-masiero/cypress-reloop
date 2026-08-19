@@ -2,8 +2,12 @@ import { LOGIN_ELEMENTS, LOGIN_MESSAGES, fillLoginForm } from '../support/elemen
 
 describe('Autenticação', () => {
   context('Login com sucesso', () => {
-    it('Deve realizar login com credenciais válidas e ir para o Dashboard', () => {
-      cy.login()
+    it('Deve realizar login com perfil standard e ir para o Dashboard', () => {
+      cy.login('designer')
+    })
+
+    it('Deve realizar login com perfil admin e ir para o Dashboard', () => {
+      cy.login('industria')
     })
   })
 
@@ -13,7 +17,9 @@ describe('Autenticação', () => {
     })
 
     it('Deve mostrar mensagem de erro ao inserir email ou senha errada', () => {
-      fillLoginForm(Cypress.env('email'), 'senha_errada')
+      const users = Cypress.env('users') || {}
+      const standardEmail = users.standard?.email || 'user@reloop.eco.br'
+      fillLoginForm(standardEmail, 'senha_errada')
       cy.get(LOGIN_ELEMENTS.errorAlert).should('contain', LOGIN_MESSAGES.invalidCredentials)
     })
 
@@ -25,7 +31,7 @@ describe('Autenticação', () => {
 
   context('Logout', () => {
     beforeEach(() => {
-      cy.login()
+      cy.login('designer')
     })
 
     it('Deve realizar logout com sucesso e ir para a página de login', () => {

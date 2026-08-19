@@ -1,0 +1,7 @@
+{
+  "baseUrl": "https://reloop.eco.br",
+  "env": {
+    "environment": "reloop",
+    "apiBaseUrl": "https://reloop.eco.br/api"
+  }
+}

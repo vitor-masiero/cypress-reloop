@@ -5,9 +5,16 @@
   "main": "cypress.config.js",
   "scripts": {
     "cy:open": "cypress open",
+    "cy:open:local": "cypress open --env configFile=local",
+    "cy:open:reloop": "cypress open --env configFile=reloop",
     "cy:run": "cypress run",
+    "cy:run:local": "cypress run --env configFile=local",
+    "cy:run:reloop": "cypress run --env configFile=reloop",
     "cy:run:chrome": "cypress run --browser chrome",
     "cy:run:headless": "cypress run --headless",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "sast": "npx semgrep scan --config auto",
     "test": "cypress run"
   },
   "repository": {

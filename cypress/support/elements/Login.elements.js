@@ -12,7 +12,13 @@ export const LOGIN_MESSAGES = {
 }
 
 export function fillLoginForm(email, password) {
-    if (email) cy.get(LOGIN_ELEMENTS.emailInput).clear().type(email)
-    if (password) cy.get(LOGIN_ELEMENTS.passwordInput).clear().type(password, { log: false })
+    if (email) {
+        cy.get(LOGIN_ELEMENTS.emailInput).clear()
+        cy.get(LOGIN_ELEMENTS.emailInput).type(email)
+    }
+    if (password) {
+        cy.get(LOGIN_ELEMENTS.passwordInput).clear()
+        cy.get(LOGIN_ELEMENTS.passwordInput).type(password, { log: false })
+    }
     cy.get(LOGIN_ELEMENTS.submitButton).click()
 }
